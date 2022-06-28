@@ -7,8 +7,6 @@ import java.util.Scanner;
 public class Exercise14 {
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-
         Scanner scanner = new Scanner(System.in);
         int n;
 
@@ -21,15 +19,15 @@ public class Exercise14 {
             arrays.add(i, scanner.nextInt());
         }
 
-        System.out.println("ArratList: " + arrays);
+        System.out.println("ArrayList: " + arrays);
 
         for (int i = 0; i < arrays.size(); i++) {
             for (int j = i + 1; j < arrays.size(); j++) {
                 if (arrays.get(i).equals(arrays.get(j))) {
                     arrays.remove(j);
-                    System.out.println("Array after remove: " + arrays);
                 }
             }
         }
+        System.out.println("Array after remove: " + arrays);
     }
 }

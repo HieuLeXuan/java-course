@@ -9,12 +9,12 @@ public class Exercise13 {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int n, choiceNumber = 0;
+        int n, choiceNumber;
 
         System.out.println("Nhap so phan tu cua mang: ");
         n = scanner.nextInt();
 
-        List<Integer> array = new ArrayList<Integer>();
+        List<Integer> array = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             array.add(i, scanner.nextInt());
@@ -35,10 +35,18 @@ public class Exercise13 {
                     FindMinMax(array);
                     break;
                 }
-//			case 5: {
-//				EvenAndOdd(array);
-//				break;
-//			}
+                case 3: {
+                    NegativeMinMax(array);
+                    break;
+                }
+                case 4: {
+                    PositiveMinMax(array);
+                    break;
+                }
+                case 5: {
+                    EvenAndOdd(array);
+                    break;
+                }
                 case 6: {
                     AddElement(array, n);
                     break;
@@ -97,19 +105,59 @@ public class Exercise13 {
     }
 
     public static void NegativeMinMax(List<Integer> array) {
+        int max = 0, min = 0;
+        for (Integer integer : array) {
+            if (integer < 0) {
+                max = integer;
+                min = integer;
+                break;
+            }
+        }
+        for (Integer integer : array) {
+            if (integer < 0 && integer > max) {
+                max = integer;
+            }
+            if (integer < 0 && integer < max) {
+                min = integer;
+            }
+        }
+        System.out.println("Negative Max in Array: " + max);
+        System.out.println("Negative Min in Array: " + min);
     }
 
     public static void PositiveMinMax(List<Integer> array) {
+        int max = 0, min = 0;
+        for (Integer integer : array) {
+            if (integer > 0) {
+                max = integer;
+                min = integer;
+                break;
+            }
+        }
+        for (Integer integer : array) {
+            if (integer > 0 && integer > max) {
+                max = integer;
+            }
+            if (integer > 0 && integer < max) {
+                min = integer;
+            }
+        }
+        System.out.println("Positive Max in Array: " + max);
+        System.out.println("Positive Min in Array: " + min);
     }
 
     public static void EvenAndOdd(List<Integer> array) {
+        List<Integer> even = new ArrayList<>();
+        List<Integer> odd = new ArrayList<>();
         for (Integer integer : array) {
             if (integer % 2 == 0) {
-                System.out.println("Odd: " + integer);
+                even.add(integer);
             } else {
-                System.out.println("Even: " + integer);
+                odd.add(integer);
             }
         }
+        System.out.println("Odd: " + odd);
+        System.out.println("Even: " + even);
     }
 
     public static void AddElement(List<Integer> array, int n) {

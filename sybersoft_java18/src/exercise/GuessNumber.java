@@ -8,7 +8,7 @@ public class GuessNumber {
         Scanner scanner = new Scanner(System.in);
         int randomNum, userNum;
 
-        randomNum = getRandomNumber(1, 1000);
+        randomNum = getRandomNumber();
         System.out.println("Random: " + randomNum);
 
         System.out.println("Nhap vao mot so bat ky: ");
@@ -22,7 +22,7 @@ public class GuessNumber {
 
     }
 
-    private static int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
+    private static int getRandomNumber() {
+        return (int) ((Math.random() * (1000 - 1)) + 1);
     }
 }
