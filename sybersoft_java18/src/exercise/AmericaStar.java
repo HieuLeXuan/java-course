@@ -7,14 +7,33 @@ public class AmericaStar {
     }
 
     public static void printStar() {
-        for (int i = 1; i <= 12; i++) {
-            for (int j = 1; j <= 50; j++) {
-                System.out.print("=");
-                if (i == 1 || i == 2 || i == 3) {
-                    System.out.print("*");
+        for (int k = 1; k <= 4; k++) {
+            for (int i = 1; i <= 7; i++) {
+                if (k % 2 == 1) {
+                    if (i % 2 == 1) {
+                        System.out.print("*");
+                    } else {
+                        System.out.print(" ");
+                    }
+                } else {
+                    if (i % 2 == 1) {
+                        System.out.print(" ");
+                    } else {
+                        System.out.print("*");
+                    }
                 }
             }
-            System.out.println("");
+            System.out.print(" ");
+            for (int i = 1; i <= 20; i++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        for (int k = 1; k <= 6; k++) {
+            for (int i = 1; i <= 28; i++) {
+                System.out.print("*");
+            }
+            System.out.println();
         }
     }
 }
