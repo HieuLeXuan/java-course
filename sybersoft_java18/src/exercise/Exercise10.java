@@ -1,6 +1,6 @@
 package exercise;
 
-public class SumLeaf {
+public class Exercise10 {
 
     public static int sumLeaf(int number) {
         int sum = 0;

@@ -1,6 +1,6 @@
 package exercise;
 
-public class CompareTwoNum {
+public class Exercise9 {
 
     public static boolean compareTwoNum(int num, int anotherNum) {
         int firstNum = num % 10;

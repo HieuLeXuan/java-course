@@ -1,6 +1,6 @@
 package exercise;
 
-public class SumDigit {
+public class Exercise4 {
 
     public static float sumDigit(int natural_num_n) {
         int count = 0;

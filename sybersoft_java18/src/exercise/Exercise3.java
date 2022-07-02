@@ -1,6 +1,10 @@
 package exercise;
 
-public class JavaVersion {
+public class Exercise3 {
+
+    public static void main(String[] args) {
+        javaVersion();
+    }
 
     public static void javaVersion() {
         System.out.println("Java Version: " + System.getProperty("java.version"));

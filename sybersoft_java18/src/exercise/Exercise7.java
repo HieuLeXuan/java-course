@@ -2,7 +2,7 @@ package exercise;
 
 import java.util.ArrayList;
 
-public class Divisor {
+public class Exercise7 {
 
     public static ArrayList<Integer> divisor(int natural_num_n) {
         ArrayList<Integer> divisors = new ArrayList<>();

@@ -1,6 +1,6 @@
 package exercise;
 
-public class Leap {
+public class Exercise16 {
 
     public static boolean leapYear(int yearIn) {
         boolean isLeap;

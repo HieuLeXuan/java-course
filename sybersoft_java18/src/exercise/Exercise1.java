@@ -1,6 +1,6 @@
 package exercise;
 
-public class AmericaStar {
+public class Exercise1 {
 
     public static void main(String[] args) {
         printStar();

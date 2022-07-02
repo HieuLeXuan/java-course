@@ -1,6 +1,6 @@
 package exercise;
 
-public class RadixConversion {
+public class Exercise2 {
 
     public static final char CHAR_55 = 55;
 
