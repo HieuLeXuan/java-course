@@ -1,6 +1,6 @@
 package test;
 
-import exercise.Karaoke;
+import exercise.javacore.Karaoke;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

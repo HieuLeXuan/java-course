@@ -1,6 +1,6 @@
 package test;
 
-import exercise.Exercise7;
+import exercise.javacore.Exercise7;
 import org.junit.jupiter.api.Test;
 
 

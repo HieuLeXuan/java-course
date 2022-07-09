@@ -1,4 +1,4 @@
-package exercise;
+package exercise.javacore;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;

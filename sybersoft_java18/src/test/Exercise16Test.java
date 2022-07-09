@@ -1,6 +1,6 @@
 package test;
 
-import exercise.Exercise16;
+import exercise.javacore.Exercise16;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

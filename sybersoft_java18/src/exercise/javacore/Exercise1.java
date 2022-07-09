@@ -1,4 +1,4 @@
-package exercise;
+package exercise.javacore;
 
 public class Exercise1 {
 
