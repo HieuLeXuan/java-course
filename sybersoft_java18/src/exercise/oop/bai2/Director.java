@@ -2,44 +2,45 @@ package exercise.oop.bai2;
 
 public class Director extends Associate {
 
-    private float percentageOfShares;
+    private int stock;
+    private int income;
 
-    public Director() {
-
-    }
-
-    public Director(float percentageOfShares) {
-        this.percentageOfShares = percentageOfShares;
-    }
-
-    public Director(String name, String id, String phone, float workingDays, float percentageOfShares) {
+    public Director(String name, String id, String phone, float workingDays, int stock) {
         super(name, id, phone, workingDays);
-        this.percentageOfShares = percentageOfShares;
+        this.stock = stock;
+        this.salaryPerDay = 300;
     }
 
-    public float getPercentageOfShares() {
-        return percentageOfShares;
+    public int getStock() {
+        return stock;
     }
 
-    public void setPercentageOfShares(float percentageOfShares) {
-        this.percentageOfShares = percentageOfShares;
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getIncome() {
+        return income;
+    }
+
+    public void setIncome(int income) {
+        this.income = income;
     }
 
     @Override
-    public void input(int number) {
-        super.input(number);
-
-        System.out.println("Type percent of shares: ");
-        setPercentageOfShares(scanner.nextFloat());
-    }
-
-    @Override
-    public float calculateSalary() {
-        return 300 * getWorkingDays();
+    public void calculateSalaryPerMonth() {
+        salaryPerMonth = salaryPerDay * workingDays;
     }
 
     @Override
     public String toString() {
-        return "Director: " + super.toString() + ", percentageOfShares= " + getPercentageOfShares()  + ", salary= " + calculateSalary();
+        return "Director{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", workingDays=" + workingDays +
+                ", salaryPerDay=" + salaryPerDay +
+                ", salaryPerMonth=" + salaryPerMonth +
+                '}';
     }
 }

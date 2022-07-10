@@ -1,6 +1,6 @@
 package exercise.oop.bai2;
 
-public class Company extends Base {
+public class Company {
 
     private String name;
     private String taxId;
@@ -39,18 +39,12 @@ public class Company extends Base {
         this.monthlyIncome = monthlyIncome;
     }
 
-    public void input() {
-        System.out.println("Type company name: ");
-        scanner.nextLine();
-        setName(scanner.nextLine());
-        System.out.println("Type company tax id: ");
-        setTaxId(scanner.nextLine());
-        System.out.println("Type company monthly income: ");
-        setMonthlyIncome(scanner.nextDouble());
-    }
-
     @Override
     public String toString() {
-        return "Company: " + "name= " + getName() + ", taxId= " + getTaxId() + ", monthlyIncome= " + getMonthlyIncome();
+        return "Company{" +
+                "name='" + this.name + '\'' +
+                ", taxId='" + this.taxId + '\'' +
+                ", monthlyIncome=" + this.monthlyIncome +
+                '}';
     }
 }

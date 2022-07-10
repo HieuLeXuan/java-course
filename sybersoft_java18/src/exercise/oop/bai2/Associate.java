@@ -1,10 +1,12 @@
 package exercise.oop.bai2;
 
-public class Associate extends Base {
-    private String name;
-    private String id;
-    private String phone;
-    private float workingDays;
+public abstract class Associate {
+    protected String id;
+    protected String name;
+    protected String phone;
+    protected float workingDays;
+    protected float salaryPerDay;
+    protected float salaryPerMonth;
 
     public Associate() {
     }
@@ -16,13 +18,7 @@ public class Associate extends Base {
         this.workingDays = workingDays;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public abstract void calculateSalaryPerMonth();
 
     public String getId() {
         return id;
@@ -30,6 +26,14 @@ public class Associate extends Base {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {
@@ -48,26 +52,19 @@ public class Associate extends Base {
         this.workingDays = workingDays;
     }
 
-    public void input(int number) {
-        System.out.println("Type" + " " + this.getClass().getSimpleName() + " " + number);
-        System.out.println("Type id: ");
-        scanner.nextLine();
-        setId(scanner.nextLine());
-        System.out.println("Type name: ");
-        setName(scanner.nextLine());
-        System.out.println("Type phone: ");
-        setPhone(scanner.nextLine());
-        System.out.println("Type working days: ");
-        setWorkingDays(scanner.nextFloat());
+    public float getSalaryPerDay() {
+        return salaryPerDay;
     }
 
-    public float calculateSalary() {
-        return 0.0f;
+    public void setSalaryPerDay(float salaryPerDay) {
+        this.salaryPerDay = salaryPerDay;
     }
 
-    @Override
-    public String toString() {
-        return "name= " + getName() + ", id= " + getId() +
-                ", phone= " + getPhone() + ", workingDays= " + getWorkingDays();
+    public float getSalaryPerMonth() {
+        return salaryPerMonth;
+    }
+
+    public void setSalaryPerMonth(float salaryPerMonth) {
+        this.salaryPerMonth = salaryPerMonth;
     }
 }

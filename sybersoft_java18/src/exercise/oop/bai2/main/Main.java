@@ -2,48 +2,69 @@ package exercise.oop.bai2.main;
 
 import exercise.oop.bai2.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class Main extends Base {
-    private static Company company = new Company();
-    private static Set<Employee> employees = new HashSet<>();
-    private static Set<Manager> managers = new HashSet<>();
-    private static Set<Director> directors = new HashSet<>();
-
+public class Main {
     public static void main(String[] args) {
+        Company company = new Company();
+        CompanyInfoManager companyInfoManager = new CompanyInfoManager();
+        Scanner scanner = new Scanner(System.in);
+
         int choise = 0;
         while (choise != 12) {
             printMenu();
             choise = scanner.nextInt();
             switch (choise) {
                 case 1:
-                    addCompany();
+                    inputCompanyInfo(company, scanner);
                     break;
                 case 2:
-                    addEmployee(2);
-                    break;
-                case 3:
-                    addDeleteAssociate();
-                    break;
-                case 4:
-                    System.out.println(company);
-                    System.out.println(directors);
-                    System.out.println(managers);
-                    System.out.println(employees);
-                    break;
-                case 5:
-                    try {
-                        System.out.println("Total salary of all employee in " + company.getName().toUpperCase() + " company: " + totalSalaryOfEmployees());
-                    } catch (Exception e) {
-                        System.out.println("Please type company info!");
+                    if (companyInfoManager.getEmployeeList().size() == 0
+                            || companyInfoManager.getManagersList().size() == 0) {
+                        System.out.println("The company does not have employee or manager!");
+                    } else {
+                        addEmployee(companyInfoManager, scanner);
                     }
                     break;
+                case 3:
+                    addDeleteAssociate(companyInfoManager, scanner);
+                    break;
+                case 4:
+                    printAllAssociate(companyInfoManager);
+                    break;
+                case 5:
+                    printCompanySalary(companyInfoManager);
+                    break;
                 case 6:
-                    getEmployeeHasHighestSalary();
+                    printEmployeeHaveMaxSalary(companyInfoManager);
+                    break;
+                case 7:
+                    printManagerHaveMaxEmployee(companyInfoManager);
                     break;
             }
+            companyInfoManager.createAssociateList();
+            companyInfoManager.getAssociateList().forEach(Associate::calculateSalaryPerMonth);
         }
+    }
+
+    static void printEmployeeHaveMaxSalary(CompanyInfoManager companyInfoManager) {
+        companyInfoManager.highestSalaryEmployee()
+                .forEach(System.out::println);
+    }
+
+    static void printManagerHaveMaxEmployee(CompanyInfoManager companyInfoManager) {
+        companyInfoManager.managerHaveMaxEmployee()
+                .forEach(System.out::println);
+    }
+
+    static void printCompanySalary(CompanyInfoManager companyInfoManager) {
+        System.out.println("Total of salary all associate: " + companyInfoManager.calculateCompanySalary());
+    }
+
+    static void printAllAssociate(CompanyInfoManager companyInfoManager) {
+        companyInfoManager.getAssociateList().forEach(System.out::println);
     }
 
     public static void printMenu() {
@@ -63,135 +84,119 @@ public class Main extends Base {
         System.out.println("=================================================================");
     }
 
-    public static void addCompany() {
-        System.out.println("======Company======");
-        if (company.getName() == null) {
-            company.input();
-        } else {
-            System.out.println("Company data already available!");
-        }
-    }
-
-    public static void addDirector() {
-        System.out.println("======Director======");
-        System.out.println("Type number of director: ");
-        int numOfDirector = scanner.nextInt();
-        if (numOfDirector > 0) {
-            for (int i = 0; i < numOfDirector; i++) {
-                Director director = new Director();
-                director.input(i + 1);
-                directors.add(director);
-            }
-        }
-    }
-
-    public static void addManager() {
-        System.out.println("======Manager======");
-        System.out.println("Type number of manager: ");
-        int numOfManager = scanner.nextInt();
-        for (int i = 0; i < numOfManager; i++) {
-            Manager manager = new Manager();
-            manager.input(i + 1);
-            managers.add(manager);
-        }
-    }
-
-    public static void addEmployee(int cases) {
-        System.out.println("======Employee======");
-        if (cases == 2) {
-            System.out.println("Type employee id you want to add: ");
+    public static void inputCompanyInfo(Company company, Scanner scanner) {
+        while (true) {
+            System.out.println("\n===COMPANY INFO===");
+            System.out.println("Type company name: ");
             scanner.nextLine();
-            String employeeId = scanner.nextLine();
+            String companyName = scanner.nextLine();
+            System.out.println("Type company tax id: ");
+            String taxId = scanner.nextLine();
+            if (!checkValidNumber(taxId)) {
+                System.out.println("Tax id invalid. Please type again.");
+                continue;
+            }
 
-            if (employees.size() != 0) {
-                for (Employee employee : employees) {
-                    if (employeeId.equals(employee.getId())) {
-                        System.out.println("Employee found.");
-                    } else {
-                        System.out.println("Employee not found.");
-                    }
+            System.out.println("Type company monthly income: ");
+            double monthlyIncome = scanner.nextDouble();
+
+            company.setName(companyName);
+            company.setTaxId(taxId);
+            company.setMonthlyIncome(monthlyIncome);
+
+            System.out.println("Type company info successfully!");
+            System.out.println(company);
+            break;
+        }
+    }
+
+    static boolean checkValidNumber(String input) {
+        Pattern p = Pattern.compile("[^0-9]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(input);
+        return !m.find();
+    }
+
+    public static void addEmployee(CompanyInfoManager companyInfoManager, Scanner scanner) {
+        System.out.println("\n===Employee===");
+        while (true) {
+            System.out.println("Type manager id: ");
+            String managerId = scanner.nextLine();
+            Manager manager = null;
+            try {
+                manager = (Manager) companyInfoManager.findEmployeeByCode(managerId);
+            } catch (Exception e) {
+                System.out.println("Manager id invalid. Please type again!");
+            }
+        }
+    }
+
+    public static void addDeleteAssociate(CompanyInfoManager companyInfoManager, Scanner scanner) {
+        int choise = 0;
+        while (choise != 4) {
+            System.out.println("\n===Add/Delete Associate===");
+            System.out.println("1. Add director");
+            System.out.println("2. Add manager");
+            System.out.println("3. Add employee");
+            System.out.println("4. Exit");
+            choise = scanner.nextInt();
+            switch (choise) {
+                case 1: {
+                    Director director = new Director(null, null, null, 0, 0);
+                    getNormalInfo(companyInfoManager, scanner, director);
+                    getManagerInfo(companyInfoManager, scanner, director);
+                    companyInfoManager.addDirector(director);
+                    break;
                 }
-            } else {
-                System.out.println("Employee not found.");
-            }
-        } else {
-            System.out.println("Type number of employee you want to add: ");
-            int num = scanner.nextInt();
-            for (int i = 0; i < num; i++) {
-                Employee employee = new Employee();
-                employee.input(i + 1, managers);
-                employees.add(employee);
-            }
-        }
-
-    }
-
-    public static void addDeleteAssociate() {
-        System.out.println("Enter type you want to chose (Add: 1/ Delete: 0): ");
-        int type = scanner.nextInt();
-        if (type == 1 || type == 0) {
-            int choise = 0;
-            while (choise != 4) {
-                System.out.println("1. Director");
-                System.out.println("2. Managers");
-                System.out.println("3. Employees");
-                System.out.println("4. Exit");
-                choise = scanner.nextInt();
-
-                switch (choise) {
-                    case 1:
-                        if (type == 1) {
-                            addDirector();
-                        } else {
-                            System.out.println("remove");
-                        }
-                        break;
-                    case 2:
-                        if (type == 1) {
-                            addManager();
-                        } else {
-                            System.out.println("remove");
-                        }
-                        break;
-                    case 3:
-                        if (type == 1) {
-                            addEmployee(3);
-                        } else {
-                            System.out.println("remove");
-                        }
-                        break;
+                case 2: {
+                    Manager manager = new Manager(null, null, null, 0.0f);
+                    getNormalInfo(companyInfoManager, scanner, manager);
+                    companyInfoManager.addManager(manager);
+                    break;
+                }
+                case 3: {
+                    Employee employee = new Employee(null, null, null, 0.0f);
+                    getNormalInfo(companyInfoManager, scanner, employee);
+                    companyInfoManager.addEmployee(employee);
+                    break;
                 }
             }
         }
     }
 
-    public static float totalSalaryOfEmployees() {
-        float totalSalary = 0.0f;
-        if (directors != null && managers != null && employees != null) {
-            for (Director director : directors) {
-                totalSalary += director.calculateSalary();
-            }
-            for (Manager manager : managers) {
-                totalSalary += manager.calculateSalary();
-            }
-            for (Employee employee : employees) {
-                totalSalary += employee.calculateSalary();
-            }
-        } else {
-            System.out.println("Please type employees info!");
-        }
-        return totalSalary;
+    private static void getManagerInfo(CompanyInfoManager companyInfoManager, Scanner scanner, Director director) {
+        System.out.println("Type stock of director: ");
+        int stock = scanner.nextInt();
+
+        director.setStock(stock);
     }
 
-    public static void getEmployeeHasHighestSalary() {
-        float max = 0.0f;
-        for (Employee employee : employees) {
-            if (employee.calculateSalary() > max) {
-                max = employee.calculateSalary();
-                System.out.println("Employee has salary highest " + "{ " + employee + " }");
+    static void getNormalInfo(CompanyInfoManager companyInfoManager, Scanner scanner, Associate associate) {
+        while (true) {
+            System.out.println("Type id: ");
+            scanner.nextLine();
+            String id = scanner.nextLine();
+            if (!companyInfoManager.checkValidCode(id)) {
+                System.out.println("Id already exists, please enter another id.");
+                continue;
             }
+            System.out.println("Type name: ");
+            String name = scanner.nextLine();
+            System.out.println("Type phone: ");
+            String phone = scanner.nextLine();
+            if (!checkValidNumber(phone)) {
+                System.out.println("Phone invalid, please enter another phone.");
+                continue;
+            }
+            System.out.println("Type working days: ");
+            float workingDays = scanner.nextFloat();
+            if (workingDays < 0 || workingDays > 30) {
+                System.out.println("Working day invalid, please enter another working day.");
+            }
+            associate.setId(id);
+            associate.setName(name);
+            associate.setPhone(phone);
+            associate.setWorkingDays(workingDays);
+            break;
         }
-
     }
-
 }

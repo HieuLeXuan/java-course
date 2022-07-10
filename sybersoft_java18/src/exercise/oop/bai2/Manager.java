@@ -2,41 +2,35 @@ package exercise.oop.bai2;
 
 public class Manager extends Associate {
 
-    private int employeeNum;
+    private int numOfStaff;
 
-    public Manager() {
-
-    }
-
-    public Manager(int employeeNum) {
-        this.employeeNum = employeeNum;
-    }
-
-    public Manager(String name, String id, String phone, float workingDays, int employeeNum) {
+    public Manager(String name, String id, String phone, float workingDays) {
         super(name, id, phone, workingDays);
-        this.employeeNum = employeeNum;
+        this.salaryPerDay = 200;
     }
 
-    public int getEmployeeNum() {
-        return employeeNum;
+    public int getNumOfStaff() {
+        return numOfStaff;
     }
 
-    public void setEmployeeNum(int employeeNum) {
-        this.employeeNum = employeeNum;
-    }
-
-    @Override
-    public void input(int number) {
-        super.input(number);
+    public void setNumOfStaff(int numOfStaff) {
+        this.numOfStaff = numOfStaff;
     }
 
     @Override
-    public float calculateSalary() {
-        return 200 * getWorkingDays() + 100 * this.employeeNum;
+    public void calculateSalaryPerMonth() {
+        salaryPerMonth = salaryPerDay * workingDays;
     }
 
     @Override
     public String toString() {
-        return "Manager: " + " " + super.toString() + ", employeeIds= " + getEmployeeNum() + ", salary= " + calculateSalary();
+        return "Manager{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", workingDays=" + workingDays +
+                ", salaryPerDay=" + salaryPerDay +
+                ", salaryPerMonth=" + salaryPerMonth +
+                '}';
     }
 }

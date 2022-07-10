@@ -1,53 +1,46 @@
 package exercise.oop.bai2;
 
-import java.util.Set;
-
 public class Employee extends Associate {
 
-    private String managerId;
+    private Manager manager;
 
-    public Employee() {
-    }
-
-    public Employee(String name, String id, String phone, float workingDays, String managerId) {
+    public Employee(String name, String id, String phone, float workingDays) {
         super(name, id, phone, workingDays);
-        this.managerId = managerId;
+        this.salaryPerDay = 100;
     }
 
-    public String getManagerId() {
-        return managerId;
+    public Manager getManager() {
+        return manager;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
-    }
-
-    public void input(int number, Set<Manager> managers) {
-        super.input(number);
-        System.out.println("Type manager id: ");
-        scanner.nextLine();
-        setManagerId(scanner.nextLine());
-        if (managers.size() != 0) {
-            String managerId = getManagerId();
-            for (Manager manager: managers) {
-                if (managerId.equals(manager.getId())) {
-                    manager.setEmployeeNum(manager.getEmployeeNum() + 1);
-                } else {
-                    setManagerId(null);
-                }
-            }
-        } else {
-            setManagerId(null);
-        }
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     @Override
-    public float calculateSalary() {
-        return 100 * getWorkingDays();
+    public void calculateSalaryPerMonth() {
+        salaryPerMonth = salaryPerDay * workingDays;
     }
 
     @Override
     public String toString() {
-        return  "Employee: " + " " + super.toString() + ", managerId= " + getManagerId() + ", salary=" + calculateSalary() + '\n' ;
+        if (manager != null) {
+            return "Employee{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", phone='" + phone + '\'' +
+                    ", workingDays=" + workingDays +
+                    ", manager=" + manager.getName() +
+                    '}';
+        } else {
+            return "Employee{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", phone='" + phone + '\'' +
+                    ", workingDays=" + workingDays +
+                    ", manager=" + manager +
+                    ", salaryPerMonth=" + salaryPerMonth +
+                    '}';
+        }
     }
 }
