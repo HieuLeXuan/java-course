@@ -1,4 +1,5 @@
 package exercise.oop.bai2.main;
+
 import exercise.oop.bai2.*;
 
 import java.util.HashSet;
@@ -12,17 +13,15 @@ public class Main extends Base {
 
     public static void main(String[] args) {
         int choise = 0;
-        while(choise != 12) {
+        while (choise != 12) {
             printMenu();
             choise = scanner.nextInt();
             switch (choise) {
                 case 1:
                     addCompany();
-                    addDirector();
-                    addManager();
                     break;
                 case 2:
-                    addEmployee();
+                    addEmployee(2);
                     break;
                 case 3:
                     addDeleteAssociate();
@@ -33,12 +32,22 @@ public class Main extends Base {
                     System.out.println(managers);
                     System.out.println(employees);
                     break;
+                case 5:
+                    try {
+                        System.out.println("Total salary of all employee in " + company.getName().toUpperCase() + " company: " + totalSalaryOfEmployees());
+                    } catch (Exception e) {
+                        System.out.println("Please type company info!");
+                    }
+                    break;
+                case 6:
+                    getEmployeeHasHighestSalary();
+                    break;
             }
         }
     }
 
     public static void printMenu() {
-        System.out.println("===============================MENU================================");
+        System.out.println("===============================MENU===============================");
         System.out.println("1. Type company info");
         System.out.println("2. Staff allocation");
         System.out.println("3. Add/Delete associate");
@@ -56,7 +65,11 @@ public class Main extends Base {
 
     public static void addCompany() {
         System.out.println("======Company======");
-        company.input();
+        if (company.getName() == null) {
+            company.input();
+        } else {
+            System.out.println("Company data already available!");
+        }
     }
 
     public static void addDirector() {
@@ -83,15 +96,34 @@ public class Main extends Base {
         }
     }
 
-    public static void addEmployee() {
+    public static void addEmployee(int cases) {
         System.out.println("======Employee======");
-        System.out.println("Type number of employee: ");
-        int numOfEmployee = scanner.nextInt();
-        for (int i = 0; i < numOfEmployee; i++) {
-            Employee employee = new Employee();
-            employee.input(i + 1, managers);
-            employees.add(employee);
+        if (cases == 2) {
+            System.out.println("Type employee id you want to add: ");
+            scanner.nextLine();
+            String employeeId = scanner.nextLine();
+
+            if (employees.size() != 0) {
+                for (Employee employee : employees) {
+                    if (employeeId.equals(employee.getId())) {
+                        System.out.println("Employee found.");
+                    } else {
+                        System.out.println("Employee not found.");
+                    }
+                }
+            } else {
+                System.out.println("Employee not found.");
+            }
+        } else {
+            System.out.println("Type number of employee you want to add: ");
+            int num = scanner.nextInt();
+            for (int i = 0; i < num; i++) {
+                Employee employee = new Employee();
+                employee.input(i + 1, managers);
+                employees.add(employee);
+            }
         }
+
     }
 
     public static void addDeleteAssociate() {
@@ -123,7 +155,7 @@ public class Main extends Base {
                         break;
                     case 3:
                         if (type == 1) {
-                            addEmployee();
+                            addEmployee(3);
                         } else {
                             System.out.println("remove");
                         }
@@ -131,6 +163,35 @@ public class Main extends Base {
                 }
             }
         }
+    }
+
+    public static float totalSalaryOfEmployees() {
+        float totalSalary = 0.0f;
+        if (directors != null && managers != null && employees != null) {
+            for (Director director : directors) {
+                totalSalary += director.calculateSalary();
+            }
+            for (Manager manager : managers) {
+                totalSalary += manager.calculateSalary();
+            }
+            for (Employee employee : employees) {
+                totalSalary += employee.calculateSalary();
+            }
+        } else {
+            System.out.println("Please type employees info!");
+        }
+        return totalSalary;
+    }
+
+    public static void getEmployeeHasHighestSalary() {
+        float max = 0.0f;
+        for (Employee employee : employees) {
+            if (employee.calculateSalary() > max) {
+                max = employee.calculateSalary();
+                System.out.println("Employee has salary highest " + "{ " + employee + " }");
+            }
+        }
+
     }
 
 }

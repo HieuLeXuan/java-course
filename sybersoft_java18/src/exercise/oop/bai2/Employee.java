@@ -9,8 +9,8 @@ public class Employee extends Associate {
     public Employee() {
     }
 
-    public Employee(String name, String id, String phone, float workingDays, float salaryPerDay, String managerId) {
-        super(name, id, phone, workingDays, salaryPerDay);
+    public Employee(String name, String id, String phone, float workingDays, String managerId) {
+        super(name, id, phone, workingDays);
         this.managerId = managerId;
     }
 
@@ -25,21 +25,29 @@ public class Employee extends Associate {
     public void input(int number, Set<Manager> managers) {
         super.input(number);
         System.out.println("Type manager id: ");
-        String managerId = scanner.nextLine();
-        for (Manager manager: managers) {
-            if (managerId.equals(manager.getId())) {
-                manager.setEmployeeNum(manager.getEmployeeNum() + 1);
+        scanner.nextLine();
+        setManagerId(scanner.nextLine());
+        if (managers.size() != 0) {
+            String managerId = getManagerId();
+            for (Manager manager: managers) {
+                if (managerId.equals(manager.getId())) {
+                    manager.setEmployeeNum(manager.getEmployeeNum() + 1);
+                } else {
+                    setManagerId(null);
+                }
             }
+        } else {
+            setManagerId(null);
         }
     }
 
     @Override
-    public float caculateSalary() {
+    public float calculateSalary() {
         return 100 * getWorkingDays();
     }
 
     @Override
     public String toString() {
-        return  "Employee=" + " " + super.toString() + " " + "managerId=" + managerId + " " + "salary=" + caculateSalary() ;
+        return  "Employee: " + " " + super.toString() + ", managerId= " + getManagerId() + ", salary=" + calculateSalary() + '\n' ;
     }
 }

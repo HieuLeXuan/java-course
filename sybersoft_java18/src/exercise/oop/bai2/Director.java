@@ -12,8 +12,8 @@ public class Director extends Associate {
         this.percentageOfShares = percentageOfShares;
     }
 
-    public Director(String name, String id, String phone, float workingDays, float salaryPerDay, float percentageOfShares) {
-        super(name, id, phone, workingDays, salaryPerDay);
+    public Director(String name, String id, String phone, float workingDays, float percentageOfShares) {
+        super(name, id, phone, workingDays);
         this.percentageOfShares = percentageOfShares;
     }
 
@@ -34,12 +34,12 @@ public class Director extends Associate {
     }
 
     @Override
-    public float caculateSalary() {
+    public float calculateSalary() {
         return 300 * getWorkingDays();
     }
 
     @Override
     public String toString() {
-        return "Director: " + super.toString() + ", percentageOfShares=" + getPercentageOfShares()  + ", salary=" + caculateSalary();
+        return "Director: " + super.toString() + ", percentageOfShares= " + getPercentageOfShares()  + ", salary= " + calculateSalary();
     }
 }

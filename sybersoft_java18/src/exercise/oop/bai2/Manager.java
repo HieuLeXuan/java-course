@@ -12,8 +12,8 @@ public class Manager extends Associate {
         this.employeeNum = employeeNum;
     }
 
-    public Manager(String name, String id, String phone, float workingDays, float salaryPerDay, int employeeNum) {
-        super(name, id, phone, workingDays, salaryPerDay);
+    public Manager(String name, String id, String phone, float workingDays, int employeeNum) {
+        super(name, id, phone, workingDays);
         this.employeeNum = employeeNum;
     }
 
@@ -31,12 +31,12 @@ public class Manager extends Associate {
     }
 
     @Override
-    public float caculateSalary() {
-            return 200 * getWorkingDays() + 100 * this.employeeNum;
+    public float calculateSalary() {
+        return 200 * getWorkingDays() + 100 * this.employeeNum;
     }
 
     @Override
     public String toString() {
-        return "Manager=" + " " + super.toString() + " " + "employeeIds=" + getEmployeeNum() + " " + "salary=" + caculateSalary();
+        return "Manager: " + " " + super.toString() + ", employeeIds= " + getEmployeeNum() + ", salary= " + calculateSalary();
     }
 }

@@ -5,17 +5,15 @@ public class Associate extends Base {
     private String id;
     private String phone;
     private float workingDays;
-    private float salaryPerDay;
 
     public Associate() {
     }
 
-    public Associate(String name, String id, String phone, float workingDays, float salaryPerDay) {
+    public Associate(String name, String id, String phone, float workingDays) {
         this.name = name;
         this.id = id;
         this.phone = phone;
         this.workingDays = workingDays;
-        this.salaryPerDay = salaryPerDay;
     }
 
     public String getName() {
@@ -50,36 +48,26 @@ public class Associate extends Base {
         this.workingDays = workingDays;
     }
 
-    public float getSalaryPerDay() {
-        return salaryPerDay;
-    }
-
-    public void setSalaryPerDay(float salaryPerDay) {
-        this.salaryPerDay = salaryPerDay;
-    }
-
     public void input(int number) {
         System.out.println("Type" + " " + this.getClass().getSimpleName() + " " + number);
         System.out.println("Type id: ");
-        setId(scanner.nextLine());
         scanner.nextLine();
+        setId(scanner.nextLine());
         System.out.println("Type name: ");
         setName(scanner.nextLine());
         System.out.println("Type phone: ");
         setPhone(scanner.nextLine());
         System.out.println("Type working days: ");
-        setSalaryPerDay(scanner.nextFloat());
+        setWorkingDays(scanner.nextFloat());
     }
 
-    public float caculateSalary() {
+    public float calculateSalary() {
         return 0.0f;
     }
 
     @Override
     public String toString() {
-        return
-                "name=" + name + " " + ", id=" + id + " " + ", phone=" + phone + " " +
-                        ", workingDays=" + workingDays + " " +
-                        ", salaryPerDay=" + salaryPerDay;
+        return "name= " + getName() + ", id= " + getId() +
+                ", phone= " + getPhone() + ", workingDays= " + getWorkingDays();
     }
 }
