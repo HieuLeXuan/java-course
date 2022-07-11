@@ -43,10 +43,33 @@ public class Main {
                 case 7:
                     printManagerHaveMaxEmployee(companyInfoManager);
                     break;
+                case 8:
+                    printAllEmployeeByNameAsc(companyInfoManager);
+                    break;
+                case 9:
+                    printAllEmployeeBySalaryDesc(companyInfoManager);
+                    break;
+                case 10:
+                    printDirectorHaveHighestStock(companyInfoManager);
+                    break;
             }
             companyInfoManager.createAssociateList();
             companyInfoManager.getAssociateList().forEach(Associate::calculateSalaryPerMonth);
         }
+    }
+
+    static void printDirectorHaveHighestStock(CompanyInfoManager companyInfoManager) {
+        companyInfoManager.directorHaveMaxStock().forEach(System.out::println);
+    }
+
+    static void printAllEmployeeBySalaryDesc(CompanyInfoManager companyInfoManager) {
+        companyInfoManager.salaryOrderDESC();
+        companyInfoManager.getAssociateList().forEach(System.out::println);
+    }
+
+    static void printAllEmployeeByNameAsc(CompanyInfoManager companyInfoManager) {
+        companyInfoManager.nameOderASC();
+        companyInfoManager.getAssociateList().forEach(System.out::println);
     }
 
     static void printEmployeeHaveMaxSalary(CompanyInfoManager companyInfoManager) {

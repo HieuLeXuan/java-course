@@ -113,4 +113,26 @@ public class CompanyInfoManager {
                 .filter(manager -> manager.getNumOfStaff() == Collections.max(employeeOfManagerList))
                 .collect(Collectors.toList());
     }
+
+    public void nameOderASC() {
+        this.associateList.sort(Comparator.comparing(Associate::getName));
+    }
+
+    public void salaryOrderDESC() {
+        for (Associate associate : associateList) {
+            associate.calculateSalaryPerMonth();
+        }
+        this.associateList.sort((associate1, associate2) -> (int) (associate1.getSalaryPerMonth() - associate2.getSalaryPerMonth()));
+    }
+
+    public List<Associate> directorHaveMaxStock() {
+        List<Integer> stockList = directorList
+                .stream()
+                .map(director -> director.getStock())
+                .collect(Collectors.toList());
+        return directorList
+                .stream()
+                .filter(director -> director.getStock() == Collections.max(stockList))
+                .collect(Collectors.toList());
+    }
 }
